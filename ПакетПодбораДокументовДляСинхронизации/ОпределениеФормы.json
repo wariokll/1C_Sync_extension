@@ -54,14 +54,28 @@
                                              "type":  "Date",
                                              "dateFractions":  "DateTime"
                                          },
-                                         {
-                                             "name":  "ОтборПоСкладу",
-                                             "title":  "Склад",
-                                             "type":  "String",
-                                             "length":  500
-                                         },
-                                         {
-                                             "name":  "ВидыДокументов",
+                                          {
+                                              "name":  "ОтборПоСкладу",
+                                              "title":  "Склад",
+                                              "type":  "String",
+                                              "length":  500
+                                          },
+                                          {
+                                              "name":  "ЛимитДокументовНаВид",
+                                              "title":  "Максимум документов одного вида (0 — без лимита)",
+                                              "type":  "Number",
+                                              "digits":  9,
+                                              "fractionDigits":  0
+                                          },
+                                          {
+                                              "name":  "ЛимитСправочниковНаВид",
+                                              "title":  "Максимум элементов справочника (0 — без лимита)",
+                                              "type":  "Number",
+                                              "digits":  9,
+                                              "fractionDigits":  0
+                                          },
+                                          {
+                                              "name":  "ВидыДокументов",
                                              "title":  "Типы объектов обмена",
                                              "type":  "ValueTable",
                                              "columns":  [
@@ -213,84 +227,126 @@
                                          }
                                      ],
                       "controls":  [
-                                       {
-                                           "kind":  "Group",
-                                           "name":  "ВерхняяПанель",
-                                           "direction":  "Horizontal",
+                                        {
+                                            "kind":  "Group",
+                                            "name":  "ВерхняяПанель",
+                                           "direction":  "Vertical",
                                            "children":  [
-                                                            {
-                                                                "kind":  "Group",
-                                                                "name":  "ВыборУзлаОбмена",
-                                                                "title":  "Узел связи",
-                                                                "direction":  "Vertical",
-                                                                "children":  [
-                                                                                 {
-                                                                                     "kind":  "Table",
-                                                                                     "name":  "ТаблицаУзловОбмена",
-                                                                                     "dataPath":  "УзлыОбмена"
-                                                                                 },
-                                                                                 {
-                                                                                     "kind":  "Group",
-                                                                                     "name":  "КомандыВыбораУзла",
-                                                                                     "direction":  "Horizontal",
-                                                                                     "children":  [
-                                                                                                      {
-                                                                                                          "kind":  "Button",
-                                                                                                          "name":  "КнопкаОбновитьУзлы",
-                                                                                                          "command":  "ОбновитьСписокУзлов"
-                                                                                                      },
-                                                                                                      {
-                                                                                                          "kind":  "Button",
-                                                                                                          "name":  "КнопкаЗагрузитьВиды",
-                                                                                                          "command":  "ЗагрузитьВидыДокументов"
-                                                                                                      }
-                                                                                                  ]
-                                                                                 }
-                                                                             ]
-                                                            },
-                                                            {
-                                                                "kind":  "Group",
-                                                                "name":  "ПараметрыПоиска",
-                                                                "title":  "Параметры отбора",
-                                                                "direction":  "Horizontal",
-                                                                "children":  [
-                                                                                 {
-                                                                                     "kind":  "InputField",
-                                                                                     "name":  "ПолеДатаНачала",
-                                                                                     "dataPath":  "ДатаНачала"
-                                                                                 },
-                                                                                 {
-                                                                                     "kind":  "InputField",
-                                                                                     "name":  "ПолеДатаОкончания",
-                                                                                     "dataPath":  "ДатаОкончания"
-                                                                                 },
-                                                                                 {
-                                                                                     "kind":  "InputField",
-                                                                                     "name":  "ПолеСклад",
-                                                                                     "dataPath":  "ОтборПоСкладу"
-                                                                                 },
-                                                                                 {
-                                                                                     "kind":  "Button",
-                                                                                     "name":  "КнопкаНайти",
-                                                                                     "command":  "НайтиДокументы"
-                                                                                 }
-                                                                             ]
-                                                            }
-                                                        ]
-                                       },
-                                       {
-                                           "kind":  "Group",
-                                           "name":  "ОсновныеСписки",
+                                                             {
+                                                                 "kind":  "Group",
+                                                                 "name":  "СтрокаВерхнихПараметров",
+                                                                 "direction":  "Horizontal",
+                                                                 "children":  [
+                                                                                  {
+                                                                                      "kind":  "Group",
+                                                                                      "name":  "ВыборУзлаОбмена",
+                                                                                      "title":  "Узел связи",
+                                                                 "direction":  "Vertical",
+                                                                 "children":  [
+                                                                                   {
+                                                                                       "kind":  "Table",
+                                                                                                           "name":  "ТаблицаУзловОбмена",
+                                                                                                           "dataPath":  "УзлыОбмена"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "kind":  "Group",
+                                                                                                           "name":  "КомандыВыбораУзла",
+                                                                                                           "direction":  "Horizontal",
+                                                                                                           "children":  [
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаОбновитьУзлы",
+                                                                                                                                "command":  "ОбновитьСписокУзлов"
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаЗагрузитьВиды",
+                                                                                                                                "command":  "ЗагрузитьВидыДокументов"
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                       }
+                                                                                                   ]
+                                                                 },
+                                                                 {
+                                                                     "kind":  "Group",
+                                                                     "name":  "ПараметрыПоиска",
+                                                                     "title":  "Параметры отбора",
+                                                                     "direction":  "Horizontal",
+                                                                     "children":  [
+                                                                                      {
+                                                                                          "kind":  "InputField",
+                                                                                          "name":  "ПолеДатаНачала",
+                                                                                          "dataPath":  "ДатаНачала"
+                                                                                      },
+                                                                                      {
+                                                                                          "kind":  "InputField",
+                                                                                          "name":  "ПолеДатаОкончания",
+                                                                                          "dataPath":  "ДатаОкончания"
+                                                                                      },
+                                                                                      {
+                                                                                          "kind":  "InputField",
+                                                                                          "name":  "ПолеСклад",
+                                                                                          "dataPath":  "ОтборПоСкладу"
+                                                                                      },
+                                                                                      {
+                                                                                          "kind":  "Button",
+                                                                                          "name":  "КнопкаНайти",
+                                                                                          "command":  "НайтиДокументы"
+                                                                                      }
+                                                                                  ]
+                                                                 }
+                                                             ]
+                                         },
+                                         {
+                                             "kind":  "Group",
+                                             "name":  "НастройкиЛимитов",
+                                             "title":  "Лимиты поиска (0 — без ограничений)",
+                                             "direction":  "Horizontal",
+                                             "children":  [
+                                                             {
+                                                                 "kind":  "InputField",
+                                                                 "name":  "ПолеЛимитДокументовНаВид",
+                                                                 "dataPath":  "ЛимитДокументовНаВид"
+                                                             },
+                                                             {
+                                                                 "kind":  "InputField",
+                                                                 "name":  "ПолеЛимитСправочниковНаВид",
+                                                                 "dataPath":  "ЛимитСправочниковНаВид"
+                                                              }
+                                                         ]
+                                         }
+                                         ]
+                                         },
+                                         {
+                                             "kind":  "Group",
+                                             "name":  "ОсновныеСписки",
                                            "direction":  "Vertical",
                                            "children":  [
                                                             {
                                                                 "kind":  "Group",
                                                                 "name":  "ГруппаРезультатов",
                                                                 "title":  "Найденные документы",
-                                                                "direction":  "Vertical",
-                                                                "children":  [
-                                                                                 {
-                                                                                     "kind":  "Table",
+                                                                                      "direction":  "Vertical",
+                                                                                      "children":  [
+                                                                                                       {
+                                                                                                           "kind":  "Group",
+                                                                                                            "name":  "КомандыВыбораРезультатов",
+                                                                                                           "direction":  "Horizontal",
+                                                                                                           "children":  [
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                 "name":  "КнопкаОтметитьВсеРезультаты",
+                                                                                                                                 "command":  "ОтметитьВсеРезультаты"
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                 "name":  "КнопкаСнятьВсеРезультаты",
+                                                                                                                                 "command":  "СнятьВсеРезультаты"
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "kind":  "Table",
                                                                                      "name":  "ТаблицаРезультатовПоиска",
                                                                                      "dataPath":  "РезультатыПоиска"
                                                                                  },
@@ -310,10 +366,27 @@
                                                                                      "kind":  "Group",
                                                                                      "name":  "ГруппаВидовДокументов",
                                                                                          "title":  "Документы и справочники",
-                                                                                     "direction":  "Vertical",
-                                                                                     "children":  [
-                                                                                                      {
-                                                                                                          "kind":  "Table",
+                                                                                      "direction":  "Vertical",
+                                                                                      "children":  [
+                                                                                                       {
+                                                                                                           "kind":  "Group",
+                                                                                                            "name":  "КомандыВыбораВидов",
+                                                                                                           "direction":  "Horizontal",
+                                                                                                           "children":  [
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаОтметитьВсеВиды",
+                                                                                                                                "command":  "ОтметитьВсеВиды"
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаСнятьВсеВиды",
+                                                                                                                                "command":  "СнятьВсеВиды"
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "kind":  "Table",
                                                                                                           "name":  "ТаблицаВидовДокументов",
                                                                                                           "dataPath":  "ВидыДокументов"
                                                                                                       }
@@ -321,12 +394,29 @@
                                                                                  },
                                                                                  {
                                                                                      "kind":  "Group",
-                                                                                     "name":  "ГруппаКорзины",
-                                                                                     "title":  "Корзина",
-                                                                                     "direction":  "Vertical",
-                                                                                     "children":  [
-                                                                                                      {
-                                                                                                          "kind":  "Table",
+                                                                                      "name":  "ГруппаКорзины",
+                                                                                      "title":  "Корзина",
+                                                                                      "direction":  "Vertical",
+                                                                                      "children":  [
+                                                                                                       {
+                                                                                                           "kind":  "Group",
+                                                                                                           "name":  "КомандыВыбораКорзины",
+                                                                                                           "direction":  "Horizontal",
+                                                                                                           "children":  [
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаОтметитьВсеКорзины",
+                                                                                                                                "command":  "ОтметитьВсеВКорзине"
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "kind":  "Button",
+                                                                                                                                "name":  "КнопкаСнятьВсеКорзины",
+                                                                                                                                "command":  "СнятьВсеВКорзине"
+                                                                                                                            }
+                                                                                                                        ]
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "kind":  "Table",
                                                                                                           "name":  "ТаблицаКорзины",
                                                                                                           "dataPath":  "Корзина"
                                                                                                       },
@@ -370,13 +460,43 @@
                                            "title":  "Обновить список узлов",
                                            "action":  "ОбновитьСписокУзлов"
                                        },
-                                       {
-                                           "name":  "ЗагрузитьВидыДокументов",
-                                           "title":  "Загрузить состав узла",
-                                           "action":  "ЗагрузитьВидыДокументов"
-                                       },
-                                       {
-                                           "name":  "НайтиДокументы",
+                                        {
+                                            "name":  "ЗагрузитьВидыДокументов",
+                                            "title":  "Загрузить состав узла",
+                                            "action":  "ЗагрузитьВидыДокументов"
+                                        },
+                                        {
+                                            "name":  "ОтметитьВсеВиды",
+                                            "title":  "Отметить все",
+                                            "action":  "ОтметитьВсеВиды"
+                                        },
+                                        {
+                                            "name":  "СнятьВсеВиды",
+                                            "title":  "Снять все",
+                                            "action":  "СнятьВсеВиды"
+                                        },
+                                        {
+                                            "name":  "ОтметитьВсеРезультаты",
+                                            "title":  "Отметить все",
+                                            "action":  "ОтметитьВсеРезультаты"
+                                        },
+                                        {
+                                            "name":  "СнятьВсеРезультаты",
+                                            "title":  "Снять все",
+                                            "action":  "СнятьВсеРезультаты"
+                                        },
+                                        {
+                                            "name":  "ОтметитьВсеВКорзине",
+                                            "title":  "Отметить все",
+                                            "action":  "ОтметитьВсеВКорзине"
+                                        },
+                                        {
+                                            "name":  "СнятьВсеВКорзине",
+                                            "title":  "Снять все",
+                                            "action":  "СнятьВсеВКорзине"
+                                        },
+                                        {
+                                            "name":  "НайтиДокументы",
                                            "title":  "Найти",
                                            "action":  "НайтиДокументы"
                                        },

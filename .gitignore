@@ -8,6 +8,14 @@
 # Packaged release snapshots are kept outside source control
 *.zip
 
+# Local metadata dumps, API responses, and diagnostic fixtures
+/schema_all.json
+/item_*.json
+/obj_*.json
+/search_*.json
+/ping.json
+/новые логи/
+
 # Local/editor and temporary files
 .DS_Store
 Thumbs.db
