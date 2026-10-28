@@ -1,0 +1,88 @@
+{
+  "forms": [
+    {
+      "name": "ФормаПримера",
+      "synonym": "Форма примера",
+      "isDefault": true,
+      "modulePath": "./epf-form-module.example.bsl",
+      "attributes": [
+        {
+          "name": "ПользовательскийТекст",
+          "title": "Текст для обработки",
+          "type": "String",
+          "length": 200
+        },
+        {
+          "name": "ПреобразоватьВВерхнийРегистр",
+          "title": "В верхний регистр",
+          "type": "Boolean"
+        },
+        {
+          "name": "Результат",
+          "title": "Результат",
+          "type": "ValueTable",
+          "columns": [
+            {
+              "name": "Текст",
+              "title": "Текст",
+              "type": "String"
+            }
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "kind": "Group",
+          "name": "ГруппаПараметров",
+          "title": "Параметры обработки",
+          "direction": "Vertical",
+          "children": [
+            {
+              "kind": "InputField",
+              "name": "ПолеТекста",
+              "dataPath": "ПользовательскийТекст"
+            },
+            {
+              "kind": "CheckBoxField",
+              "name": "ФлагВерхнийРегистр",
+              "dataPath": "ПреобразоватьВВерхнийРегистр"
+            }
+          ]
+        },
+        {
+          "kind": "Group",
+          "name": "ГруппаДействий",
+          "direction": "Horizontal",
+          "children": [
+            {
+              "kind": "Button",
+              "name": "КнопкаВыполнить",
+              "command": "Выполнить"
+            }
+          ]
+        },
+        {
+          "kind": "Group",
+          "name": "ГруппаРезультата",
+          "title": "Результат",
+          "direction": "Vertical",
+          "children": [
+            {
+              "kind": "Table",
+              "name": "ТаблицаРезультата",
+              "dataPath": "Результат"
+            }
+          ]
+        }
+      ],
+      "commands": [
+        {
+          "name": "Выполнить",
+          "title": "Обработать текст",
+          "action": "ОбработатьТекст"
+        }
+      ],
+      "events": []
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "processorName": "ЭкспортЦен",
+  "requiredPlatformVersion": "8.3.27.2214",
+  "rootMetadata": "ЭкспортЦен.xml",
+  "formMetadata": "Forms/Форма/Ext/Form.xml",
+  "modulePath": "Forms/Форма/Ext/Form/Module.bsl"
+}

@@ -1,0 +1,16 @@
+# Generated external processors and build outputs
+*.epf
+*.build
+*.build.log
+*.script.log
+**/output/**
+
+# Packaged release snapshots are kept outside source control
+*.zip
+
+# Local/editor and temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.user

@@ -1,0 +1,93 @@
+﻿{
+  "replaceTemplateForms": true,
+  "forms": [
+    {
+      "name": "ФормаВыбораДокументов",
+      "synonym": "Подбор документов для синхронизации",
+      "isDefault": true,
+      "modulePath": "./МодульВыбораДокументов.bsl",
+      "attributes": [
+        { "name": "Статус", "title": "Статус", "type": "String", "length": 250 },
+        { "name": "ДатаНачала", "title": "Дата с", "type": "Date", "dateFractions": "DateTime" },
+        { "name": "ДатаОкончания", "title": "Дата по", "type": "Date", "dateFractions": "DateTime" },
+        { "name": "ОтборПоСкладу", "title": "Склад (часть наименования)", "type": "String", "length": 100 },
+        {
+          "name": "ВидыДокументов", "title": "Виды документов", "type": "ValueTable",
+          "columns": [
+            { "name": "Выбрать", "title": "Выбрать", "type": "Boolean" },
+            { "name": "Имя", "title": "Имя метаданных", "type": "String" },
+            { "name": "Представление", "title": "Вид документа", "type": "String" },
+            { "name": "РеквизитыСклада", "title": "Реквизит склада", "type": "String" }
+          ]
+        },
+        {
+          "name": "РезультатыПоиска", "title": "Результаты поиска", "type": "ValueTable",
+          "columns": [
+            { "name": "Выбрать", "title": "Выбрать", "type": "Boolean" },
+            { "name": "Идентификатор", "title": "Ссылка (служебное)", "type": "String" },
+            { "name": "ВидДокумента", "title": "Вид документа", "type": "String" },
+            { "name": "Дата", "title": "Дата", "type": "Date" },
+            { "name": "Номер", "title": "Номер", "type": "String" },
+            { "name": "Представление", "title": "Документ", "type": "String" }
+          ]
+        },
+        {
+          "name": "Корзина", "title": "Корзина синхронизации", "type": "ValueTable",
+          "columns": [
+            { "name": "Выбрать", "title": "Выбрать", "type": "Boolean" },
+            { "name": "Идентификатор", "title": "Ссылка (служебное)", "type": "String" },
+            { "name": "ВидДокумента", "title": "Вид документа", "type": "String" },
+            { "name": "Дата", "title": "Дата", "type": "Date" },
+            { "name": "Номер", "title": "Номер", "type": "String" },
+            { "name": "Представление", "title": "Документ", "type": "String" }
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "kind": "Group", "name": "ПараметрыПоиска", "title": "Параметры отбора", "direction": "Horizontal",
+          "children": [
+            { "kind": "InputField", "name": "ПолеДатаНачала", "dataPath": "ДатаНачала" },
+            { "kind": "InputField", "name": "ПолеДатаОкончания", "dataPath": "ДатаОкончания" },
+            { "kind": "InputField", "name": "ПолеСклад", "dataPath": "ОтборПоСкладу" },
+            { "kind": "Button", "name": "КнопкаНайти", "command": "НайтиДокументы" }
+          ]
+        },
+        {
+          "kind": "Group", "name": "ГруппаВидовДокументов", "title": "Виды документов", "direction": "Vertical",
+          "children": [
+            { "kind": "Table", "name": "ТаблицаВидовДокументов", "dataPath": "ВидыДокументов" }
+          ]
+        },
+        {
+          "kind": "Group", "name": "ГруппаРезультатов", "title": "Результаты поиска (отметьте документы и добавьте в корзину)", "direction": "Vertical",
+          "children": [
+            { "kind": "Table", "name": "ТаблицаРезультатовПоиска", "dataPath": "РезультатыПоиска" },
+            { "kind": "Button", "name": "КнопкаДобавитьВКорзину", "command": "ДобавитьВКорзину" }
+          ]
+        },
+        {
+          "kind": "Group", "name": "ГруппаКорзины", "title": "Корзина синхронизации (не очищается при новом поиске)", "direction": "Vertical",
+          "children": [
+            { "kind": "Table", "name": "ТаблицаКорзины", "dataPath": "Корзина" },
+            {
+              "kind": "Group", "name": "ДействияКорзины", "direction": "Horizontal",
+              "children": [
+                { "kind": "Button", "name": "КнопкаУдалитьИзКорзины", "command": "УдалитьИзКорзины" },
+                { "kind": "Button", "name": "КнопкаОчиститьКорзину", "command": "ОчиститьКорзину" }
+              ]
+            }
+          ]
+        },
+        { "kind": "InputField", "name": "ПолеСтатус", "dataPath": "Статус" }
+      ],
+      "commands": [
+        { "name": "НайтиДокументы", "title": "Найти", "action": "НайтиДокументы" },
+        { "name": "ДобавитьВКорзину", "title": "Добавить отмеченные в корзину", "action": "ДобавитьВКорзину" },
+        { "name": "УдалитьИзКорзины", "title": "Удалить отмеченные", "action": "УдалитьИзКорзины" },
+        { "name": "ОчиститьКорзину", "title": "Очистить корзину", "action": "ОчиститьКорзину" }
+      ],
+      "events": [ { "name": "ПриОткрытии", "handler": "ПриОткрытии" } ]
+    }
+  ]
+}
